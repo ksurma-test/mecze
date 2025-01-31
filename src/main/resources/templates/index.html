@@ -48,32 +48,46 @@
 
 <script>
     async function fetchWyniki() {
-        try {
-            const response = await fetch('/api/wyniki');
-            const wyniki = await response.json();
-
-            const tabela = document.getElementById('wyniki-tabela');
-            tabela.innerHTML = '';
-
-            wyniki.forEach((druzyna, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${druzyna.nazwaDruzyny}</td>
-                    <td>${druzyna.meczeRozegrane}</td>
-                    <td>${druzyna.wygrane}</td>
-                    <td>${druzyna.przegrane}</td>
-                    <td>${druzyna.remisy}</td>
-                    <td>${druzyna.punkty}</td>
-                `;
-                tabela.appendChild(row);
-            });
-        } catch (error) {
-            console.error('Błąd podczas pobierania danych:', error);
+    try {
+        const response = await fetch('/api/wyniki');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-    }
+        const wyniki = await response.json();
 
-    window.onload = fetchWyniki;
+        console.log("Otrzymane dane:", wyniki); // Debugowanie
+
+        const tabela = document.getElementById('wyniki-tabela');
+        tabela.innerHTML = '';
+
+        if (wyniki.length === 0) {
+            tabela.innerHTML = `<tr><td colspan="7">Brak danych</td></tr>`;
+            return;
+        }
+
+        wyniki.forEach((druzyna, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${druzyna.nazwa_druzyny}</td>
+                <td>${druzyna.mecze_rozegrane}</td>
+                <td>${druzyna.wygrane}</td>
+                <td>${druzyna.przegrane}</td>
+                <td>${druzyna.remisy}</td>
+                <td>${druzyna.punkty}</td>
+            `;
+            tabela.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error('Błąd pobierania wyników:', error);
+        document.getElementById('wyniki-tabela').innerHTML =
+            `<tr><td colspan="7">Błąd ładowania danych</td></tr>`;
+    }
+}
+
+window.onload = fetchWyniki;
+
 </script>
 
 </body>

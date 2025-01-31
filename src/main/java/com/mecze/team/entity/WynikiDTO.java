@@ -9,7 +9,7 @@ public class WynikiDTO {
     private int remisy;
     private int punkty;
 
-    public WynikiDTO(String nazwaDruzyny, int meczeRozegrane, int wygrane, int przegrane, int remisy, int punkty) {
+    public WynikiDTO(long l, String nazwaDruzyny, int meczeRozegrane, int wygrane, int przegrane, int remisy, int punkty) {
         this.nazwaDruzyny = nazwaDruzyny;
         this.meczeRozegrane = meczeRozegrane;
         this.wygrane = wygrane;
