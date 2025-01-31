@@ -57,6 +57,14 @@ app.get('/api/wyniki', async (req, res) => {
         res.status(500).json({ error: 'Błąd serwera' });
     }
 });
+
+
+// Trasa dla strony HTML /home
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/main/resources/templates/home.html'));
+});
+
+
 // Sprawdzenie połączenia z bazą
 pool.connect()
   .then(() => console.log("Połączono z bazą danych PostgreSQL"))
