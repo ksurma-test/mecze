@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj Spotkanie</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Edytuj Spotkanie</h1>
+<form th:action="@{/spotkania/edit}" th:object="${spotkanie}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Data:</label>
+    <input type="date" th:field="*{data}" />
+
+    <label>Drużyna 1:</label>
+    <select th:field="*{druzyna1}">
+        <option th:each="druzyna : ${druzyny}"
+                th:value="${druzyna.id}"
+                th:text="${druzyna.name}"
+                th:selected="${spotkanie.druzyna1?.id == druzyna.id}">
+        </option>
+    </select>
+
+    <label>Drużyna 2:</label>
+    <select th:field="*{druzyna2}">
+        <option th:each="druzyna : ${druzyny}"
+                th:value="${druzyna.id}"
+                th:text="${druzyna.name}"
+                th:selected="${spotkanie.druzyna2?.id == druzyna.id}">
+        </option>
+    </select>
+
+    <label>Gole 1:</label>
+    <input type="number" th:field="*{gole1}" />
+
+    <label>Gole 2:</label>
+    <input type="number" th:field="*{gole2}" />
+
+    <label>Status:</label>
+    <select th:field="*{status}">
+        <option th:each="status : ${T(com.mecze.team.entity.Status).values()}"
+                th:value="${status}"
+                th:text="${status}"
+                th:selected="${spotkanie.status == status}">
+        </option>
+    </select>
+
+    <button type="submit">Zapisz zmiany</button>
+</form>
+
+
+<a href="/spotkania">Powrót</a>
+</body>
+</html>

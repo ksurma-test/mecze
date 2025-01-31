@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotkania</title>
+    <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/druzyny">Drużyny</a></li>
+        <li><a href="/spotkania">Spotkania</a></li>
+        <li><a href="/zawodnicy">Zawodnicy</a></li>
+    </ul>
+</nav>
+<h1>Spotkania</h1>
+<a href="/spotkania/create">Dodaj spotkanie</a>
+<table class="my-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Data</th>
+        <th>Drużyna 1</th>
+        <th>Drużyna 2</th>
+        <th>Gole 1</th>
+        <th>Gole 2</th>
+        <th>Status</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="spotkanie : ${spotkania}">
+        <td th:text="${spotkanie.id}"></td>
+        <td th:text="${spotkanie.data}"></td>
+        <td th:text="${spotkanie.druzyna1.name}"></td>
+        <td th:text="${spotkanie.druzyna2.name}"></td>
+        <td th:text="${spotkanie.gole1}"></td>
+        <td th:text="${spotkanie.gole2}"></td>
+        <td th:text="${spotkanie.status}"></td>
+        <td>
+            <a th:href="@{/spotkania/edit/{id}(id=${spotkanie.id})}">Edytuj</a>
+            <a th:href="@{/spotkania/delete/{id}(id=${spotkanie.id})}">Usuń</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

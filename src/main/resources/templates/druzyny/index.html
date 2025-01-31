@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Drużyny</title>
+    <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/druzyny">Drużyny</a></li>
+        <li><a href="/spotkania">Spotkania</a></li>
+        <li><a href="/zawodnicy">Zawodnicy</a></li>
+    </ul>
+</nav>
+<h1>Drużyny</h1>
+<a href="/druzyny/create">Dodaj drużynę</a>
+<table  class="my-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nazwa</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="druzyna : ${druzyny}">
+        <td th:text="${druzyna.id}"></td>
+        <td th:text="${druzyna.name}"></td>
+        <td>
+            <a th:href="@{/druzyny/edit/{id}(id=${druzyna.id})}">Edytuj</a>
+            <a th:href="@{/druzyny/delete/{id}(id=${druzyna.id})}">Usuń</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

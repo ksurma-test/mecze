@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Zawodników</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="/druzyny">Drużyny</a></li>
+        <li><a href="/spotkania">Spotkania</a></li>
+        <li><a href="/zawodnicy">Zawodnicy</a></li>
+    </ul>
+</nav>
+<h2>Lista Zawodników</h2>
+<a th:href="@{/zawodnicy/add}">Dodaj Zawodnika</a>
+<table class="my-table">
+    <tr>
+        <th>ID</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Numer</th>
+        <th>Drużyna</th>
+        <th>Akcje</th>
+    </tr>
+    <tr th:each="zawodnik : ${zawodnicy}">
+        <td th:text="${zawodnik.id}">ID</td>
+        <td th:text="${zawodnik.imie}">Imie</td>
+        <td th:text="${zawodnik.nazwisko}">Nazwisko</td>
+        <td th:text="${zawodnik.numer}">Numer</td>
+        <td th:text="${zawodnik.druzyna != null ? zawodnik.druzyna.name : 'Brak drużyny'}"></td>
+
+        <td>
+            <a th:href="@{/zawodnicy/edit/{id}(id=${zawodnik.id})}">Edytuj</a>
+            <a th:href="@{/zawodnicy/delete/{id}(id=${zawodnik.id})}">Usuń</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

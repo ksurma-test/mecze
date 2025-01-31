@@ -1,0 +1,21 @@
+<form action="/zawodnicy/create" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
+    <label for="imie">Imię:</label>
+    <input type="text" id="imie" name="imie" required>
+
+    <label for="nazwisko">Nazwisko:</label>
+    <input type="text" id="nazwisko" name="nazwisko" required>
+
+    <label for="numer">Numer:</label>
+    <input type="number" id="numer" name="numer" required>
+
+    <label for="druzyna">Drużyna:</label>
+    <select id="druzyna" name="druzyna.id"> <!-- Używamy druzyna.id -->
+        <option value="">Wybierz drużynę</option>
+        <option th:each="druzyna : ${druzyny}"
+                th:value="${druzyna.id}"
+                th:text="${druzyna.name}">
+        </option>
+    </select>
+
+    <button type="submit">Dodaj</button>
+</form>

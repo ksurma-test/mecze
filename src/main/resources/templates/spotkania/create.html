@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Spotkanie</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Dodaj Spotkanie</h1>
+<form action="/spotkania/create" method="post">
+    <label for="data">Data:</label>
+    <input type="date" id="data" name="data" required>
+
+    <label for="druzyna1">Drużyna 1:</label>
+    <select id="druzyna1" name="druzyna1Id" required>
+        <option th:each="druzyna : ${druzyny}" th:value="${druzyna.id}" th:text="${druzyna.name}"></option>
+    </select>
+
+    <label for="druzyna2">Drużyna 2:</label>
+    <select id="druzyna2" name="druzyna2Id" required>
+        <option th:each="druzyna : ${druzyny}" th:value="${druzyna.id}" th:text="${druzyna.name}"></option>
+    </select>
+
+    <label for="gole1">Gole 1:</label>
+    <input type="number" id="gole1" name="gole1" min="0" required>
+
+    <label for="gole2">Gole 2:</label>
+    <input type="number" id="gole2" name="gole2" min="0" required>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+        <option value="PRZED_SPOTKANIEM">PRZED_SPOTKANIEM</option>
+        <option value="ZAKONCZONO">ZAKONCZONO</option>
+        <option value="WALKOWER">WALKOWER</option>
+    </select>
+
+    <button type="submit">Dodaj Spotkanie</button>
+</form>
+<a href="/spotkania">Powrót</a>
+</body>
+</html>
