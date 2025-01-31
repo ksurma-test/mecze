@@ -4,6 +4,11 @@ const { Pool } = require("pg");
 const app = express();
 const PORT = process.env.PORT || 3000; // Heroku dostarcza PORT jako zmienną środowiskową
 
+
+const path = require('path');
+
+
+
 // Konfiguracja połączenia z PostgreSQL (Heroku)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Heroku ustawia zmienną DATABASE_URL
@@ -61,7 +66,12 @@ app.get('/api/wyniki', async (req, res) => {
 
 // Trasa dla strony HTML /home
 app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/main/resources/templates/home.html'));
+    try {
+        res.sendFile(path.join(__dirname, 'templates', 'home.html'));  // Zaktualizowana ścieżka
+    } catch (error) {
+        console.error("Błąd przy ładowaniu home.html:", error);
+        res.status(500).send("Wystąpił błąd przy ładowaniu strony.");
+    }
 });
 
 
