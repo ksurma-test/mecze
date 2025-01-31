@@ -74,6 +74,17 @@ app.get('/home', (req, res) => {
 });
 
 
+app.get('/druzyny', (req, res) => {
+    try {
+        res.sendFile(path.join(__dirname, 'src/main/resources/templates/druzyny/index.html'));
+    } catch (error) {
+        console.error("Błąd przy ładowaniu home.html:", error);
+        res.status(500).send("Wystąpił błąd przy ładowaniu strony.");
+    }
+});
+
+
+
 // Sprawdzenie połączenia z bazą
 pool.connect()
   .then(() => console.log("Połączono z bazą danych PostgreSQL"))
