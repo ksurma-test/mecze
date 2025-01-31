@@ -64,10 +64,9 @@ app.get('/api/wyniki', async (req, res) => {
 });
 
 
-// Trasa dla strony HTML /home
 app.get('/home', (req, res) => {
     try {
-        res.sendFile(path.join(__dirname, 'templates', 'home.html'));  // Zaktualizowana ścieżka
+        res.sendFile(path.join(__dirname, 'src/main/resources/templates/home.html'));
     } catch (error) {
         console.error("Błąd przy ładowaniu home.html:", error);
         res.status(500).send("Wystąpił błąd przy ładowaniu strony.");
