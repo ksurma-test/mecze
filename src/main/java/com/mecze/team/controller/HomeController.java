@@ -11,6 +11,6 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home() {
-        return "home/home";  // nazwa pliku HTML strony głównej
+        return "home";  // nazwa pliku HTML strony głównej
     }
 }
