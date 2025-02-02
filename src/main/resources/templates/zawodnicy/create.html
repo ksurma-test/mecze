@@ -1,3 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Zawodnika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            input, select, button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Dodaj Zawodnika</h2>
+
 <form action="/zawodnicy/create" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
     <label for="imie">Imię:</label>
     <input type="text" id="imie" name="imie" required>
@@ -9,7 +94,7 @@
     <input type="number" id="numer" name="numer" required>
 
     <label for="druzyna">Drużyna:</label>
-    <select id="druzyna" name="druzyna.id"> <!-- Używamy druzyna.id -->
+    <select id="druzyna" name="druzyna.id">
         <option value="">Wybierz drużynę</option>
         <option th:each="druzyna : ${druzyny}"
                 th:value="${druzyna.id}"
@@ -19,3 +104,7 @@
 
     <button type="submit">Dodaj</button>
 </form>
+
+</body>
+</html>
+

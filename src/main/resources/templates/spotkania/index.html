@@ -2,9 +2,113 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotkania</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
 
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #495057;
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            a {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 <nav>
@@ -14,36 +118,41 @@
         <li><a href="/zawodnicy">Zawodnicy</a></li>
     </ul>
 </nav>
+
 <h1>Spotkania</h1>
 <a href="/spotkania/create">Dodaj spotkanie</a>
-<table class="my-table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Data</th>
-        <th>Drużyna 1</th>
-        <th>Drużyna 2</th>
-        <th>Gole 1</th>
-        <th>Gole 2</th>
-        <th>Status</th>
-        <th>Akcje</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="spotkanie : ${spotkania}">
-        <td th:text="${spotkanie.id}"></td>
-        <td th:text="${spotkanie.data}"></td>
-        <td th:text="${spotkanie.druzyna1.name}"></td>
-        <td th:text="${spotkanie.druzyna2.name}"></td>
-        <td th:text="${spotkanie.gole1}"></td>
-        <td th:text="${spotkanie.gole2}"></td>
-        <td th:text="${spotkanie.status}"></td>
-        <td>
-            <a th:href="@{/spotkania/edit/{id}(id=${spotkanie.id})}">Edytuj</a>
-            <a th:href="@{/spotkania/delete/{id}(id=${spotkanie.id})}">Usuń</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Drużyna 1</th>
+            <th>Drużyna 2</th>
+            <th>Gole 1</th>
+            <th>Gole 2</th>
+            <th>Status</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spotkanie : ${spotkania}">
+            <td th:text="${spotkanie.id}"></td>
+            <td th:text="${spotkanie.data}"></td>
+            <td th:text="${spotkanie.druzyna1.name}"></td>
+            <td th:text="${spotkanie.druzyna2.name}"></td>
+            <td th:text="${spotkanie.gole1}"></td>
+            <td th:text="${spotkanie.gole2}"></td>
+            <td th:text="${spotkanie.status}"></td>
+            <td>
+                <a th:href="@{/spotkania/edit/{id}(id=${spotkanie.id})}">Edytuj</a>
+                <a th:href="@{/spotkania/delete/{id}(id=${spotkanie.id})}" style="color: red;">Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

@@ -5,89 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablica wyników</title>
     <style>
-        .table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
+        body {
             font-family: Arial, sans-serif;
-        }
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 10px;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
             text-align: center;
         }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* Zapobiega ściskaniu na małych ekranach */
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
         .table th {
             background-color: #4CAF50;
             color: white;
         }
+
         .table tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            .table th, .table td {
+                font-size: 14px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
 
-<h2 style="text-align: center;">Tabela Wyników</h2>
+<h2>Tablica wyników</h2>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Miejsce</th>
-        <th>Nazwa Drużyny</th>
-        <th>Rozegrane</th>
-        <th>Wygrane</th>
-        <th>Przegrane</th>
-        <th>Remisy</th>
-        <th>Punkty</th>
-    </tr>
-    </thead>
-    <tbody id="wyniki-tabela">
-    <!-- Wiersze wyników zostaną dodane przez JavaScript -->
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Miejsce</th>
+            <th>Nazwa Drużyny</th>
+            <th>Rozegrane</th>
+            <th>Wygrane</th>
+            <th>Przegrane</th>
+            <th>Remisy</th>
+            <th>Punkty</th>
+        </tr>
+        </thead>
+        <tbody id="wyniki-tabela">
+        <!-- Wiersze wyników zostaną dodane przez JavaScript -->
+        </tbody>
+    </table>
+</div>
 
 <script>
     async function fetchWyniki() {
-    try {
-        const response = await fetch('/api/wyniki');
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        try {
+            const response = await fetch('/api/wyniki');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const wyniki = await response.json();
+
+            console.log("Otrzymane dane:", wyniki); // Debugowanie
+
+            const tabela = document.getElementById('wyniki-tabela');
+            tabela.innerHTML = '';
+
+            if (wyniki.length === 0) {
+                tabela.innerHTML = `<tr><td colspan="7">Brak danych</td></tr>`;
+                return;
+            }
+
+            wyniki.forEach((druzyna, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${druzyna.nazwaDruzyny}</td>
+                    <td>${druzyna.meczeRozegrane}</td>
+                    <td>${druzyna.wygrane}</td>
+                    <td>${druzyna.przegrane}</td>
+                    <td>${druzyna.remisy}</td>
+                    <td>${druzyna.punkty}</td>
+                `;
+                tabela.appendChild(row);
+            });
+
+        } catch (error) {
+            console.error('Błąd pobierania wyników:', error);
+            document.getElementById('wyniki-tabela').innerHTML =
+                `<tr><td colspan="7">Błąd ładowania danych</td></tr>`;
         }
-        const wyniki = await response.json();
-
-        console.log("Otrzymane dane:", wyniki); // Debugowanie
-
-        const tabela = document.getElementById('wyniki-tabela');
-        tabela.innerHTML = '';
-
-        if (wyniki.length === 0) {
-            tabela.innerHTML = `<tr><td colspan="7">Brak danych</td></tr>`;
-            return;
-        }
-
-        wyniki.forEach((druzyna, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-            <td>${druzyna.nazwaDruzyny}</td>
-            <td>${druzyna.meczeRozegrane}</td>
-                <td>${druzyna.wygrane}</td>
-                <td>${druzyna.przegrane}</td>
-                <td>${druzyna.remisy}</td>
-                <td>${druzyna.punkty}</td>
-            `;
-            tabela.appendChild(row);
-        });
-
-    } catch (error) {
-        console.error('Błąd pobierania wyników:', error);
-        document.getElementById('wyniki-tabela').innerHTML =
-            `<tr><td colspan="7">Błąd ładowania danych</td></tr>`;
     }
-}
 
-window.onload = fetchWyniki;
-
+    window.onload = fetchWyniki;
 </script>
 
 </body>
